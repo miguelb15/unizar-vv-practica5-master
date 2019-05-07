@@ -182,6 +182,16 @@ public class InventoryTest {
         assertEquals(-1, backStagePass.getSellIn());
     }
 
+    //P8
+    @Test
+    public void sellin_negativo_y_quality_se_mantiene_cero() {
+        Item normalItem = new Item("Backstage passes", -8, 0);
+        Inventory inventory = createInventory(normalItem);
+        inventory.updateQuality();
+        assertEquals(0, normalItem.getQuality());
+        assertEquals(-9, normalItem.getSellIn());
+    }
+
     //P9
     @Test
     public void should_lower_the_sellIn_by_one_for_normal_items() {
@@ -214,6 +224,36 @@ public class InventoryTest {
         Inventory inventory = createInventory(normalItem);
         inventory.updateQuality();
         assertEquals(23, normalItem.getQuality());
+    }
+
+    //P10b
+    @Test
+    public void sellin_negativo_y_quality_baja_a_cero() {
+        Item normalItem = new Item("+5 Dexterity Vest", -8, 1);
+        Inventory inventory = createInventory(normalItem);
+        inventory.updateQuality();
+        assertEquals(0, normalItem.getQuality());
+        assertEquals(-9, normalItem.getSellIn());
+    }
+
+    //P10c
+    @Test
+    public void sellin_negativo_y_quality_cero() {
+        Item normalItem = new Item("+5 Dexterity Vest", -8, 0);
+        Inventory inventory = createInventory(normalItem);
+        inventory.updateQuality();
+        assertEquals(0, normalItem.getQuality());
+        assertEquals(-9, normalItem.getSellIn());
+    }
+
+    //P10d
+    @Test
+    public void sellin_cero_y_quality_baja_dos() {
+        Item normalItem = new Item("+5 Dexterity Vest", 0, 25);
+        Inventory inventory = createInventory(normalItem);
+        inventory.updateQuality();
+        assertEquals(23, normalItem.getQuality());
+        assertEquals(-1, normalItem.getSellIn());
     }
 
     //DIFERENTE
