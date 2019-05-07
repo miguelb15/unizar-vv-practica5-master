@@ -72,6 +72,16 @@ public class InventoryTest {
         assertEquals(47, backStagePass.getQuality());
     }
 
+    //P6d
+    @Test
+    public void should_increase_backstage_passes_above_a_quality_of_50d() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 48);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(50, backStagePass.getQuality());
+        assertEquals(4, backStagePass.getSellIn());
+    }
+
     //P6e
     @Test
     public void should_not_increase_backstage_passes_above_a_quality_of_28() {
@@ -79,6 +89,7 @@ public class InventoryTest {
         Inventory inventory = createInventory(backStagePass);
         inventory.updateQuality();
         assertEquals(28, backStagePass.getQuality());
+        assertEquals(0, backStagePass.getSellIn());
     }
 
     //P6f
@@ -88,6 +99,7 @@ public class InventoryTest {
         Inventory inventory = createInventory(backStagePass);
         inventory.updateQuality();
         assertEquals(50, backStagePass.getQuality());
+        assertEquals(0, backStagePass.getSellIn());
     }
 
     //P6g
@@ -97,6 +109,7 @@ public class InventoryTest {
         Inventory inventory = createInventory(backStagePass);
         inventory.updateQuality();
         assertEquals(50, backStagePass.getQuality());
+        assertEquals(0, backStagePass.getSellIn());
     }
 
     //P6h
@@ -106,6 +119,17 @@ public class InventoryTest {
         Inventory inventory = createInventory(backStagePass);
         inventory.updateQuality();
         assertEquals(50, backStagePass.getQuality());
+        assertEquals(0, backStagePass.getSellIn());
+    }
+
+    //P7
+    @Test
+    public void should_not_increase_backstage_passes_above_a_quality_of_25() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 25);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(0, backStagePass.getQuality());
+        assertEquals(-1, backStagePass.getSellIn());
     }
 
     //P9
