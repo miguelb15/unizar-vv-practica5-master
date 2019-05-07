@@ -121,4 +121,43 @@ public class InventoryTest {
         assertEquals(50, backStagePass10DaysAway.getQuality());
         assertEquals(50, backStagePass5DaysAway.getQuality());
     }
+
+    //P6e
+    @Test
+    public void should_not_increase_backstage_passes_above_a_quality_of_28() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 25);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(28, backStagePass.getQuality());
+    }
+
+    //P6f
+    @Test
+    public void should_increase_backstage_passes_above_a_quality_of_50() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 50);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(50, backStagePass.getQuality());
+    }
+
+    //P6g
+    @Test
+    public void should_increase_backstage_passes_above_a_quality_of_49() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 49);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(50, backStagePass.getQuality());
+    }
+
+    //P6h
+    @Test
+    public void should_increase_backstage_passes_above_a_quality_of_48() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 48);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(50, backStagePass.getQuality());
+    }
+
+
+
 }
