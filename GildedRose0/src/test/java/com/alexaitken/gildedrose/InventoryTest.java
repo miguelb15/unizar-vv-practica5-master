@@ -32,6 +32,7 @@ public class InventoryTest {
     @Test
     public void should_increase_the_quality_of_aged_brie_by_two_as_it_gets_older() {
         Item agedBrie = new Item("Aged Brie", -8, 25);
+        agedBrie.setName("Aged Brie");
         Inventory inventory = createInventory(agedBrie);
         inventory.updateQuality();
         assertEquals(27, agedBrie.getQuality());
@@ -72,7 +73,6 @@ public class InventoryTest {
     @Test
     public void should_never_changes_quailty_of_Sulfuras() {
         Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", 0, 80);
-        sulfuras.setName("Sulfuras, Hand of Ragnaros");
         Inventory inventory = createInventory(sulfuras);
         inventory.updateQuality();
         assertEquals(80, sulfuras.getQuality());
