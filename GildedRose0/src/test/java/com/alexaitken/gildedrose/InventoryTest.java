@@ -45,6 +45,7 @@ public class InventoryTest {
         Inventory inventory = createInventory(agedBrie);
         inventory.updateQuality();
         assertEquals(50, agedBrie.getQuality());
+        assertEquals(-9, agedBrie.getSellIn());
     }
 
     //P2c
@@ -54,6 +55,7 @@ public class InventoryTest {
         Inventory inventory = createInventory(agedBrie);
         inventory.updateQuality();
         assertEquals(50, agedBrie.getQuality());
+        assertEquals(-9, agedBrie.getSellIn());
     }
 
     //P2d
@@ -63,6 +65,7 @@ public class InventoryTest {
         Inventory inventory = createInventory(agedBrie);
         inventory.updateQuality();
         assertEquals(27, agedBrie.getQuality());
+        assertEquals(-1, agedBrie.getSellIn());
     }
 
     //p3
@@ -90,6 +93,16 @@ public class InventoryTest {
         Inventory inventory = createInventory(backStagePass);
         inventory.updateQuality();
         assertEquals(21, backStagePass.getQuality());
+    }
+
+    //P4b
+    @Test
+    public void should_not_increase_backstage_passes_quality_over_50() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 50);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(50, backStagePass.getQuality());
+        assertEquals(10, backStagePass.getSellIn());
     }
 
     //P5
