@@ -28,6 +28,43 @@ public class InventoryTest {
         assertEquals(50, agedBrie.getQuality());
     }
 
+    //P2
+    @Test
+    public void should_increase_the_quality_of_aged_brie_by_two_as_it_gets_older() {
+        Item agedBrie = new Item("Aged Brie", -8, 25);
+        Inventory inventory = createInventory(agedBrie);
+        inventory.updateQuality();
+        assertEquals(27, agedBrie.getQuality());
+        assertEquals(-9, agedBrie.getSellIn());
+    }
+
+    //P2b
+    @Test
+    public void should_not_increase_the_quality_of_aged_brie_over_50_with_sellIn_passedby() {
+        Item agedBrie = new Item("Aged Brie", -8, 50);
+        Inventory inventory = createInventory(agedBrie);
+        inventory.updateQuality();
+        assertEquals(50, agedBrie.getQuality());
+    }
+
+    //P2c
+    @Test
+    public void should_increase_the_quality_of_aged_brie_limit_value() {
+        Item agedBrie = new Item("Aged Brie", -8, 49);
+        Inventory inventory = createInventory(agedBrie);
+        inventory.updateQuality();
+        assertEquals(50, agedBrie.getQuality());
+    }
+
+    //P2d
+    @Test
+    public void should_increase_the_quality_of_aged_brie_by_two_as_it_past_sellIn() {
+        Item agedBrie = new Item("Aged Brie", 0, 25);
+        Inventory inventory = createInventory(agedBrie);
+        inventory.updateQuality();
+        assertEquals(27, agedBrie.getQuality());
+    }
+
     //p3
     @Test
     public void should_never_changes_quailty_of_Sulfuras() {
