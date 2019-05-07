@@ -1,11 +1,8 @@
 package com.alexaitken.gildedrose;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
-import com.alexaitken.gildedrose.Inventory;
-import com.alexaitken.gildedrose.Item;
+import static org.junit.Assert.assertEquals;
 
 
 public class InventoryTest {
@@ -13,10 +10,29 @@ public class InventoryTest {
     private Inventory createInventory(Item... items) {
         return new Inventory(items);
     }
+
+    //P1
+    @Test
+    public void should_increase_the_quality_of_aged_brie_as_it_gets_older() {
+        Item agedBrie = new Item("Aged Brie", 10, 25);
+        Inventory inventory = createInventory(agedBrie);
+        inventory.updateQuality();
+        assertEquals(26, agedBrie.getQuality());
+    }
+    //P1b
+    @Test
+    public void should_not_increase_the_quality_of_aged_brie_over_50() {
+        Item agedBrie = new Item("Aged Brie", 10, 50);
+        Inventory inventory = createInventory(agedBrie);
+        inventory.updateQuality();
+        assertEquals(50, agedBrie.getQuality());
+    }
+
     //p3
     @Test
     public void should_never_changes_quailty_of_Sulfuras() {
         Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", 0, 80);
+        sulfuras.setName("Sulfuras, Hand of Ragnaros");
         Inventory inventory = createInventory(sulfuras);
         inventory.updateQuality();
         assertEquals(80, sulfuras.getQuality());
@@ -29,6 +45,33 @@ public class InventoryTest {
         inventory.updateQuality();
         assertEquals(0, sulfuras.getSellIn());
     }
+
+    //P4
+    @Test
+    public void should_increase_backstage_passes_quality_by_1_when_the_concert_is_more_than_10_days_away() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 20);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(21, backStagePass.getQuality());
+    }
+
+    //P5
+    @Test
+    public void should_increase_backstage_passes_quality_by_2_when_the_concert_is_10_days_or_less_away() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 27);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(29, backStagePass.getQuality());
+    }
+    //P5d
+    @Test
+    public void should_increase_backstage_passes_quality_by_3_when_the_concert_is_5_days_or_less_away() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 44);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(47, backStagePass.getQuality());
+    }
+
     //P9
     @Test
     public void should_lower_the_sellIn_by_one_for_normal_items() {
@@ -53,6 +96,7 @@ public class InventoryTest {
         inventory.updateQuality();
         assertEquals(0, normalItem.getQuality());
     }
+
     //P10
     @Test
     public void should_lower_the_quality_twice_as_fast_once_the_sell_in_date_has_passed() {
@@ -61,22 +105,7 @@ public class InventoryTest {
         inventory.updateQuality();
         assertEquals(23, normalItem.getQuality());
     }
-    //P1
-    @Test
-    public void should_increase_the_quality_of_aged_brie_as_it_gets_older() {
-        Item agedBrie = new Item("Aged Brie", 10, 25);
-        Inventory inventory = createInventory(agedBrie);
-        inventory.updateQuality();
-        assertEquals(26, agedBrie.getQuality());
-    }
-    //P1b
-    @Test
-    public void should_not_increase_the_quality_of_aged_brie_over_50() {
-        Item agedBrie = new Item("Aged Brie", 10, 50);
-        Inventory inventory = createInventory(agedBrie);
-        inventory.updateQuality();
-        assertEquals(50, agedBrie.getQuality());
-    }
+
     //DIFERENTE
     @Test
     public void should_lower_backstage_passes_to_zero_quality_once_concert_has_happened() {
@@ -85,30 +114,7 @@ public class InventoryTest {
         inventory.updateQuality();
         assertEquals(0, backStagePass.getQuality());
     }
-    //P4
-    @Test
-    public void should_increase_backstage_passes_quality_by_1_when_the_concert_is_more_than_10_days_away() {
-        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 20);
-        Inventory inventory = createInventory(backStagePass);
-        inventory.updateQuality();
-        assertEquals(21, backStagePass.getQuality());
-    }
-    //P5
-    @Test
-    public void should_increase_backstage_passes_quality_by_2_when_the_concert_is_10_days_or_less_away() {
-        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 27);
-        Inventory inventory = createInventory(backStagePass);
-        inventory.updateQuality();
-        assertEquals(29, backStagePass.getQuality());
-    }
-    //P5d
-    @Test
-    public void should_increase_backstage_passes_quality_by_3_when_the_concert_is_5_days_or_less_away() {
-        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 44);
-        Inventory inventory = createInventory(backStagePass);
-        inventory.updateQuality();
-        assertEquals(47, backStagePass.getQuality());
-    }
+
 
     @Test
     public void should_not_increase_backstage_passes_above_a_quality_of_50() {
