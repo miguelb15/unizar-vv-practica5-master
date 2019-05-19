@@ -1,9 +1,6 @@
-/**
- * 
- */
 package com.alexaitken.gildedrose;
 
-public class Item {
+class Item {
 
     private String name;
     private int sellIn;

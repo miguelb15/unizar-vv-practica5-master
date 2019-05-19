@@ -1,8 +1,10 @@
 package com.alexaitken.gildedrose;
 
-public class Inventory {
+import java.util.Objects;
 
-    private Item[] items;
+class Inventory {
+
+    private final Item[] items;
 
     public Inventory(Item[] items) {
         super();
@@ -11,53 +13,52 @@ public class Inventory {
 
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            if (items[i].getName() != "Aged Brie"
-                    && items[i].getName() != "Backstage passes to a TAFKAL80ETC concert") {
-                if (items[i].getQuality() > 0) {
-                    if (items[i].getName() != "Sulfuras, Hand of Ragnaros") {
-                        items[i].setQuality(items[i].getQuality() - 1);
+        for (Item item : items) {
+            if (!Objects.equals(item.getName(), "Aged Brie")
+                    && !Objects.equals(item.getName(), "Backstage passes to a TAFKAL80ETC concert")) {
+                if (item.getQuality() > 0) {
+                    if (!Objects.equals(item.getName(), "Sulfuras, Hand of Ragnaros")) {
+                        item.setQuality(item.getQuality() - 1);
                     }
                 }
             } else {
-                if (items[i].getQuality() < 50) {
-                    items[i].setQuality(items[i].getQuality() + 1);
+                if (item.getQuality() < 50) {
+                    item.setQuality(item.getQuality() + 1);
 
-                    if (items[i].getName() == "Backstage passes to a TAFKAL80ETC concert") {
-                        if (items[i].getSellIn() < 11) {
-                            if (items[i].getQuality() < 50) {
-                                items[i].setQuality(items[i].getQuality() + 1);
+                    if (Objects.equals(item.getName(), "Backstage passes to a TAFKAL80ETC concert")) {
+                        if (item.getSellIn() < 11) {
+                            if (item.getQuality() < 50) {
+                                item.setQuality(item.getQuality() + 1);
                             }
                         }
 
-                        if (items[i].getSellIn() < 6) {
-                            if (items[i].getQuality() < 50) {
-                                items[i].setQuality(items[i].getQuality() + 1);
+                        if (item.getSellIn() < 6) {
+                            if (item.getQuality() < 50) {
+                                item.setQuality(item.getQuality() + 1);
                             }
                         }
                     }
                 }
             }
 
-            if (items[i].getName() != "Sulfuras, Hand of Ragnaros") {
-                items[i].setSellIn(items[i].getSellIn() - 1);
+            if (!Objects.equals(item.getName(), "Sulfuras, Hand of Ragnaros")) {
+                item.setSellIn(item.getSellIn() - 1);
             }
 
-            if (items[i].getSellIn() < 0) {
-                if (items[i].getName() != "Aged Brie") {
-                    if (items[i].getName() != "Backstage passes to a TAFKAL80ETC concert") {
-                        if (items[i].getQuality() > 0) {
-                            if (items[i].getName() != "Sulfuras, Hand of Ragnaros") {
-                                items[i].setQuality(items[i].getQuality() - 1);
+            if (item.getSellIn() < 0) {
+                if (!Objects.equals(item.getName(), "Aged Brie")) {
+                    if (!Objects.equals(item.getName(), "Backstage passes to a TAFKAL80ETC concert")) {
+                        if (item.getQuality() > 0) {
+                            if (!Objects.equals(item.getName(), "Sulfuras, Hand of Ragnaros")) {
+                                item.setQuality(item.getQuality() - 1);
                             }
                         }
                     } else {
-                        items[i].setQuality(items[i].getQuality()
-                                - items[i].getQuality());
+                        item.setQuality(0);
                     }
                 } else {
-                    if (items[i].getQuality() < 50) {
-                        items[i].setQuality(items[i].getQuality() + 1);
+                    if (item.getQuality() < 50) {
+                        item.setQuality(item.getQuality() + 1);
                     }
                 }
             }
