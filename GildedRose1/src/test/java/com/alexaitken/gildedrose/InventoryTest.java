@@ -100,11 +100,39 @@ public class InventoryTest {
     }
     //P5d
     @Test
-    public void should_increase_backstage_passes_quality_by_3_when_the_concert_is_5_days_or_less_away() {
-        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 44);
+    public void should_increase_backstage_passes_quality_by_2_when_the_concert_is_6_days() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 6, 25);
         Inventory inventory = createInventory(backStagePass);
         inventory.updateQuality();
-        assertEquals(47, backStagePass.getQuality());
+        assertEquals(27, backStagePass.getQuality());
+        assertEquals(5, backStagePass.getSellIn());
+    }
+    //P6
+    @Test
+    public void should_increase_backstage_passes_quality_by_3_when_the_concert_is_5_days_or_less_away() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 25);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(28, backStagePass.getQuality());
+        assertEquals(4, backStagePass.getSellIn());
+    }
+    //P6b
+    @Test
+    public void should_not_increase_backstage_passes_above_a_quality_of_over_50_with_limit_sellIn_5() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 50);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(50, backStagePass.getQuality());
+        assertEquals(4, backStagePass.getSellIn());
+    }
+    //P6c
+    @Test
+    public void should_increase_backstage_passes_above_a_quality_of_50c() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(50, backStagePass.getQuality());
+        assertEquals(4, backStagePass.getSellIn());
     }
 
     //P6d
@@ -169,7 +197,7 @@ public class InventoryTest {
 
     //P8
     @Test
-    public void sellin_negativo_y_quality_se_mantiene_cero() {
+    public void sellin_negative_and_quality_stay_cero() {
         Item normalItem = new Item("Backstage passes", -8, 0);
         Inventory inventory = createInventory(normalItem);
         inventory.updateQuality();
@@ -213,7 +241,7 @@ public class InventoryTest {
 
     //P10b
     @Test
-    public void sellin_negativo_y_quality_baja_a_cero() {
+    public void sellIn_negative_and_quality_down_to_cero() {
         Item normalItem = new Item("+5 Dexterity Vest", -8, 1);
         Inventory inventory = createInventory(normalItem);
         inventory.updateQuality();
@@ -223,7 +251,7 @@ public class InventoryTest {
 
     //P10c
     @Test
-    public void sellin_negativo_y_quality_cero() {
+    public void sellIn_negative_and_quality_cero() {
         Item normalItem = new Item("+5 Dexterity Vest", -8, 0);
         Inventory inventory = createInventory(normalItem);
         inventory.updateQuality();
@@ -233,7 +261,7 @@ public class InventoryTest {
 
     //P10d
     @Test
-    public void sellin_cero_y_quality_baja_dos() {
+    public void sellIn_cero_and_quality_down_2() {
         Item normalItem = new Item("+5 Dexterity Vest", 0, 25);
         Inventory inventory = createInventory(normalItem);
         inventory.updateQuality();
