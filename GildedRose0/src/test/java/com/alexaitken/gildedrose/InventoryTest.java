@@ -177,7 +177,6 @@ public class InventoryTest {
         assertEquals(50, backStagePass.getQuality());
         assertEquals(4, backStagePass.getSellIn());
     }
-
     //P6e
     @Test
     public void should_not_increase_backstage_passes_above_a_quality_of_28() {
@@ -230,7 +229,7 @@ public class InventoryTest {
 
     //P8
     @Test
-    public void sellin_negative_and_quality_stay_cero() {
+    public void sellin_negative_amd_quality_stay_cero() {
         Item normalItem = new Item("Backstage passes", -8, 0);
         Inventory inventory = createInventory(normalItem);
         inventory.updateQuality();

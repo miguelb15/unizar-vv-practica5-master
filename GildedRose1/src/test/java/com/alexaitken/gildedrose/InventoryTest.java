@@ -89,7 +89,15 @@ public class InventoryTest {
         inventory.updateQuality();
         assertEquals(21, backStagePass.getQuality());
     }
-
+    //P4b
+    @Test
+    public void should_not_increase_backstage_passes_quality_over_50() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 11, 50);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(50, backStagePass.getQuality());
+        assertEquals(10, backStagePass.getSellIn());
+    }
     //P5
     @Test
     public void should_increase_backstage_passes_quality_by_2_when_the_concert_is_10_days_or_less_away() {
@@ -105,6 +113,24 @@ public class InventoryTest {
         Inventory inventory = createInventory(backStagePass);
         inventory.updateQuality();
         assertEquals(27, backStagePass.getQuality());
+        assertEquals(5, backStagePass.getSellIn());
+    }
+    //P5e
+    @Test
+    public void should_not_increase_backstage_passes_50_quality_and_down_1_sellIn() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 6, 50);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(50, backStagePass.getQuality());
+        assertEquals(5, backStagePass.getSellIn());
+    }
+    //P5f
+    @Test
+    public void should_increase_backstage_passes_50_quality_and_down_1_sellIn() {
+        Item backStagePass = new Item("Backstage passes to a TAFKAL80ETC concert", 6, 49);
+        Inventory inventory = createInventory(backStagePass);
+        inventory.updateQuality();
+        assertEquals(50, backStagePass.getQuality());
         assertEquals(5, backStagePass.getSellIn());
     }
     //P6
@@ -134,7 +160,6 @@ public class InventoryTest {
         assertEquals(50, backStagePass.getQuality());
         assertEquals(4, backStagePass.getSellIn());
     }
-
     //P6d
     @Test
     public void should_increase_backstage_passes_above_a_quality_of_50d() {
